@@ -20,7 +20,7 @@ if [[ $GID != 1000 || $UID != 1000 ]]
 then
     deluser terraria
     groupadd -g $GID terraria
-    useradd -MD -s /bin/false -u $GID -g terraria terraria
+    useradd -DM -s /bin/false -u $GID -g terraria terraria
 fi
 
 # if no banlist, create it

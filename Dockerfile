@@ -5,7 +5,7 @@ COPY serverconfig.txt /tmp/serverconfig.txt
 
 RUN apt-get -qq update && apt-get install -qqy zip \
     && groupadd -g 1000 terraria \
-    && useradd -MD -s /bin/false -u 1000 -g terraria terraria \
+    && useradd -DM -s /bin/false -u 1000 -g terraria terraria \
     && mkdir -p \
         /opt/terraria/ \
         /world/ \
