@@ -11,7 +11,7 @@ RUN apt-get -qq update && apt-get install -qqy zip \
         /world/ \
         /var/log/terraria \
         /data/ \
-    && chmod 755 /start
+    && chmod 700 /start
 
 EXPOSE 7777
 

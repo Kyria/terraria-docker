@@ -5,15 +5,6 @@ BANLIST_INI=/data/config/banlist.txt
 
 set -e
 
-function setServerProp {
-  local prop=$1
-  local var=$2
-  if [ -n "$var" ]; then
-    echo "Setting $prop to $var"
-    sed -i "/$prop\s*=/ c $prop=$var" $TMP_INI
-  fi
-}
-
 # force UID / GID of murmur user, in case we want it to match host values
 # and no usermod available...
 if [[ $GID != 1000 || $UID != 1000 ]]
@@ -37,14 +28,14 @@ then
     FIXED_WORLD_NAME=$(echo $WORLD_NAME | tr ' ' _ )
 
     echo "[INFO] Create $FINAL_INI file"
-    setServerProp "world" "/data/worlds/$FIXED_WORLD_NAME"
-    setServerProp "autocreate" "$WORLD_SIZE"
-    setServerProp "worldname" "$WORLD_NAME"
-    setServerProp "difficulty" "$DIFFICULTY"
-    setServerProp "maxplayers" "$MAXPLAYER"
-    setServerProp "motd" "'$MOTD'"
-    setServerProp "password" "'$SERVER_PASSWORD'"
-    setServerProp "lang" "$LANGUAGE"
+    sed -i "/world\s*=/ c world=\/data\/worlds\/$FIXED_WORLD_NAME" $TMP_INI
+    sed -i "/autocreate\s*=/ c autocreate=$WORLD_SIZE" $TMP_INI
+    sed -i "/worldname\s*=/ c worldname=$WORLD_NAME" $TMP_INI
+    sed -i "/difficulty\s*=/ c difficulty=$DIFFICULTY" $TMP_INI
+    sed -i "/maxplayers\s*=/ c maxplayers=$MAXPLAYER" $TMP_INI
+    sed -i "/motd\s*=/ c motd='$MOTD'" $TMP_INI
+    sed -i "/password\s*=/ c password=$SERVER_PASSWORD" $TMP_INI
+    sed -i "/lang\s*=/ c lang=$LANGUAGE" $TMP_INI
 
     mv -f $TMP_INI $FINAL_INI
 fi
