@@ -20,7 +20,7 @@ if [[ $GID != 1000 || $UID != 1000 ]]
 then
     deluser terraria
     addgroup --gid $GID terraria
-    adduser --no-create-home --shell /bin/false --uid $UID --group terraria terraria
+    adduser --no-create-home --shell /bin/false --uid $UID --gid $GID terraria
 fi
 
 # if no banlist, create it
