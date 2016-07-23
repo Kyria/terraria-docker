@@ -4,8 +4,8 @@ COPY start.sh /start
 COPY serverconfig.txt /tmp/serverconfig.txt
 
 RUN apt-get -qq update && apt-get install -qqy zip \
-    && addgroup --gid 1000 terraria \
-    && adduser --no-create-home --shell /bin/false --uid 1000 --gid 1000 terraria \
+    && groupadd -g 1000 terraria \
+    && useradd -MD -s /bin/false -u 1000 -g terraria terraria \
     && mkdir -p \
         /opt/terraria/ \
         /world/ \
