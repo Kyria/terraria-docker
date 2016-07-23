@@ -20,7 +20,7 @@ if [[ $GID != 1000 || $UID != 1000 ]]
 then
     deluser terraria
     addgroup --gid $GID terraria
-    adduser --no-create-home -s /bin/false --uid $UID --group terraria terraria
+    adduser --no-create-home --shell /bin/false --uid $UID --group terraria terraria
 fi
 
 # if no banlist, create it
@@ -30,7 +30,7 @@ then
     touch $BANLIST_INI
 fi
 
-# if no murmur ini has been given / already set, set values and move it
+# if no terraria config file has been given / already set, set values and move it
 if [[ ! -f "$FINAL_INI" ]]
 then
     # required as the game put _ in name...
