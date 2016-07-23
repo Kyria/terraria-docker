@@ -3,7 +3,7 @@ FROM mono:latest
 COPY start.sh /start
 COPY serverconfig.txt /tmp/serverconfig.txt
 
-RUN apt-get install -y zip \
+RUN apt-get update && apt-get install -y zip \
     && addgroup -g 1000 terraria \
     && adduser -DS -s /bin/false -u 1000 -G terraria terraria \
     && mkdir -p \
@@ -31,6 +31,6 @@ ENV UID=1000 GID=1000 \
     DIFFICULTY=1 \
     MAXPLAYER=8 \
     SERVER_PASSWORD= \
-    MOTD=Please don<92>t cut the purple trees! \
+    MOTD="Please don<92>t cut the purple trees!" \
     WORLD_SIZE=3
 
