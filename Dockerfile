@@ -3,7 +3,7 @@ FROM mono:latest
 COPY start.sh /start
 COPY serverconfig.txt /tmp/serverconfig.txt
 
-RUN apt-get -qq update && apt-get install -qqy zip \
+RUN apt-get -qq update && apt-get install -qqy zip wget \
     && groupadd -g 1000 terraria \
     && useradd -M -s /bin/false -u 1000 -g terraria terraria \
     && mkdir -p \

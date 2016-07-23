@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 TMP_INI=/tmp/serverconfig.txt
 FINAL_INI=/data/config/serverconfig.txt
 BANLIST_INI=/data/config/banlist.txt
