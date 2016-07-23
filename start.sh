@@ -43,7 +43,9 @@ fi
 if [[ ! -f /opt/terraria/TerrariaServer.bin.${BIN_ARCHITECTURE} || ! -f version_${TERRARIA_BIN_VERSION} ]]
 then
     wget ${TERRARIA_BIN_URL}${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip
-    unzip -jo ${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip "*/Linux/*" -d ./
+    unzip -o ${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip "*/Linux/*" -d ./
+    mv -f ./"Dedicated Server"/Linux/* ./
+    rm -fR ./"Dedicated Server"
     chmod 755 TerrariaServer.*
     rm -f ${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip
     touch version_${TERRARIA_BIN_VERSION}
