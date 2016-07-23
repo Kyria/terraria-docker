@@ -8,9 +8,11 @@ RUN apt-get -qq update && apt-get install -qqy \
         zip \
         wget \
         libc6 \
+        sudo \
         mono-runtime mono-4.0-gac mono-devel \
+    && apt-get clean \
     && groupadd -g 1000 terraria \
-    && useradd -M -s /bin/false -u 1000 -g terraria -d /opt/terraria  terraria \
+    && useradd -M -s /bin/false -u 1000 -g terraria -d /opt/terraria terraria \
     && mkdir -p \
         /opt/terraria/ \
         /world/ \
