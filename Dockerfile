@@ -3,9 +3,9 @@ FROM mono:latest
 COPY start.sh /start
 COPY serverconfig.txt /tmp/serverconfig.txt
 
-RUN apt-get update && apt-get install -y zip \
-    && addgroup -g 1000 terraria \
-    && adduser -DS -s /bin/false -u 1000 -G terraria terraria \
+RUN apt-get -qq update && apt-get install -qqy zip \
+    && addgroup --gid 1000 terraria \
+    && adduser --no-create-home -s /bin/false --uid 1000 --group terraria terraria \
     && mkdir -p \
         /opt/terraria/ \
         /world/ \

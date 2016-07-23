@@ -19,8 +19,8 @@ function setServerProp {
 if [[ $GID != 1000 || $UID != 1000 ]]
 then
     deluser terraria
-    addgroup -g $GID terraria
-    adduser -DS -s /bin/false -u $UID -G terraria terraria
+    addgroup --gid $GID terraria
+    adduser --no-create-home -s /bin/false --uid $UID --group terraria terraria
 fi
 
 # if no banlist, create it
