@@ -2,7 +2,7 @@ FROM debian:8.5
 
 COPY start.sh /start
 COPY start_terraria.sh /start_terraria
-COPY serverconfig.txt /tmp/serverconfig.txt
+COPY serverconfig.txt /data/config/serverconfig_tmp.txt
 
 RUN apt-get -qq update && apt-get install -qqy \
         zip \
@@ -16,25 +16,13 @@ RUN apt-get -qq update && apt-get install -qqy \
     && mkdir -p \
         /opt/terraria/ \
         /world/ \
-        /var/log/terraria \
         /data/worlds \
         /data/config \
-    && chmod 700 /start /start_terraria\
-    && chown -R terraria:terraria \
-        /opt/terraria/ \
-        /world/ \
-        /var/log/terraria \
-        /data/ \
-        /start_terraria \
-    && chmod -R 755 \
-        /opt/terraria/ \
-        /world/ \
-        /var/log/terraria \
-        /data/
+    && chmod 700 /start /start_terraria
 
 EXPOSE 7777
 
-VOLUME ["/opt/terraria/", "/var/log/terraria", "/data/worlds", "/data/config"]
+VOLUME ["/opt/terraria/", "/data/worlds", "/data/config"]
 
 WORKDIR /opt/terraria
 

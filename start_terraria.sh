@@ -1,13 +1,17 @@
 #!/bin/bash
 
+TMP_INI=/data/config/serverconfig_tmp.txt
+FINAL_INI=/data/config/serverconfig.txt
+BANLIST_INI=/data/config/banlist.txt
+
 # if no banlist, create it
-if [[ ! -f "$BANLIST_INI" ]]
+if [[ ! -e "$BANLIST_INI" ]]
 then
     touch $BANLIST_INI
 fi
 
 # if no terraria config file has been given / already set, set values and move it
-if [[ ! -f "$FINAL_INI" ]]
+if [[ ! -e "$FINAL_INI" ]]
 then
     # required as the game put _ in name...
     FIXED_WORLD_NAME=$(echo $WORLD_NAME | tr ' ' _ )
@@ -24,16 +28,19 @@ then
     mv -f $TMP_INI $FINAL_INI
 fi
 
-if [[ ! -f /opt/terraria/TerrariaServer.bin.${BIN_ARCHITECTURE} || ! -f version_${TERRARIA_BIN_VERSION} ]]
+rm -f $TMP_INI
+
+if [[ ! -e /opt/terraria/TerrariaServer.bin.${BIN_ARCHITECTURE} || ! -e /opt/terraria/version_${TERRARIA_BIN_VERSION} ]]
 then
     wget ${TERRARIA_BIN_URL}${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip
-    unzip -o ${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip "*/Linux/*" -d ./
-    mv -f ./"Dedicated Server"/Linux/* ./
-    rm -fR ./"Dedicated Server"
+    unzip -o ${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip "*/Linux/*" -d /opt/terraria/
+    mv -f /opt/terraria/"Dedicated Server"/Linux/* /opt/terraria/
+    rm -fR /opt/terraria/"Dedicated Server"
     rm -f ${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip
-    touch version_${TERRARIA_BIN_VERSION}
+    touch /opt/terraria/version_${TERRARIA_BIN_VERSION}
     chmod 755 *
 fi
 
 # start terraria !
+chmod 755 /opt/terraria/TerrariaServer.bin.${BIN_ARCHITECTURE}
 /opt/terraria/TerrariaServer.bin.${BIN_ARCHITECTURE} -config $FINAL_INI
