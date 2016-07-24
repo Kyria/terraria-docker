@@ -2,7 +2,7 @@ FROM debian:8.5
 
 COPY start.sh /start
 COPY start_terraria.sh /start_terraria
-COPY serverconfig.txt /data/config/serverconfig_tmp.txt
+COPY serverconfig.txt /tmp/serverconfig.txt
 
 RUN apt-get -qq update && apt-get install -qqy \
         zip \
