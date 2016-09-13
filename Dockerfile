@@ -29,7 +29,7 @@ WORKDIR /opt/terraria
 ENTRYPOINT ["/start"]
 
 ENV UID=1000 GID=1000 \
-    TERRARIA_BIN_VERSION=1321 \
+    TERRARIA_BIN_VERSION=1332 \
     TERRARIA_BIN_URL=http://terraria.org/server/ \
     TERRARIA_BIN_NAME=terraria-server- \
     BIN_ARCHITECTURE=x86_64 \
@@ -40,4 +40,3 @@ ENV UID=1000 GID=1000 \
     SERVER_PASSWORD= \
     MOTD="Please don<92>t cut the purple trees!" \
     WORLD_SIZE=1
-
