@@ -3,7 +3,7 @@
 CONFIG=/data/config/serverconfig.txt
 BANLIST_INI=/data/config/banlist.txt
 
-if [[ -z "$WORLD_SEED"]]
+if [[ -z "$WORLD_SEED" ]]
 then
     export WORLD_SEED=$(openssl rand -hex 32)
 fi
