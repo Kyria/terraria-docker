@@ -1,0 +1,51 @@
+#!/bin/bash
+
+CONFIG=/data/config/serverconfig.txt
+BANLIST_INI=/data/config/banlist.txt
+
+if [[ -z "$WORLD_SEED"]]
+then
+    export WORLD_SEED=$(openssl rand -hex 32)
+fi
+
+# if no banlist, create it
+if [[ ! -e "$BANLIST_INI" ]]
+then
+    touch $BANLIST_INI
+fi
+
+# if no terraria config file has been given / already set, set values and move it
+if [[ ! -e "$FINAL_INI" ]]
+then
+    # required as the game put _ in name...
+    FIXED_WORLD_NAME=$(echo $WORLD_NAME | tr ' ' _ )
+
+    cat >$CONFIG <<EOF
+world=/data/worlds/${FIXED_WORLD_NAME}.wld
+worldpath=/data/worlds/
+autocreate=$WORLD_SIZE
+worldname=$WORLD_NAME
+difficulty=$DIFFICULTY
+maxplayers=$MAXPLAYER
+motd='$MOTD'
+password=$SERVER_PASSWORD
+language=$LANGUAGE
+port=7777
+priority=1
+seed=$WORLD_SEED
+EOF
+fi
+
+if [[ ! -d /terraria/${TERRARIA_BIN_VERSION}/ || ! -e /terraria/${TERRARIA_BIN_VERSION}/TerrariaServer.bin.${BIN_ARCHITECTURE} ]]
+then
+    wget ${TERRARIA_BIN_URL}${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip
+    unzip -j -o ${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip "*/Linux/*" -d /terraria/${TERRARIA_BIN_VERSION}/
+    rm -f ${TERRARIA_BIN_NAME}${TERRARIA_BIN_VERSION}.zip
+    chmod -R 755 /terraria/${TERRARIA_BIN_VERSION}/
+    rm -f /terraria/current
+    ln -sf /terraria/${TERRARIA_BIN_VERSION}/ /terraria/current
+fi
+
+# start terraria !
+chmod a+x /terraria/current/TerrariaServer.bin.${BIN_ARCHITECTURE}
+/terraria/current/TerrariaServer.bin.${BIN_ARCHITECTURE} -config $CONFIG
