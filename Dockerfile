@@ -12,11 +12,10 @@ RUN apt-get -qq update && apt-get install -qqy \
         /terraria/ \
         /data/worlds \
         /data/config \
-    && chmod -R 755 /terraria /data
+    && chmod -R 755 /terraria /data \
+    && chown -R terraria:terraria /terraria /data
 
 EXPOSE 7777
-
-VOLUME ["/terraria/", "/data"]
 
 COPY bin/* /usr/local/bin
 RUN chmod a+x /usr/local/bin/*
